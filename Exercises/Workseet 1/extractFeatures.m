@@ -1,0 +1,19 @@
+function [features] = extractFeatures(img)
+    R = img(:, :, 1);
+    G = img(:, :, 2);
+    B = img(:, :, 3);
+    meanR = mean(R(2:end));
+    stdR = std2(R);
+    meanG = mean(G(2:end));
+    stdG = std2(G);
+    meanB = mean(B(2:end));
+    stdB = std2(B);
+    gray_img = rgb2gray(img);
+    glcm = graycomatrix(gray_img, 'Offset', [0 1], 'NumLevels', 256);
+    props = graycoprops(glcm, {'Contrast', 'Correlation', 'Energy', 'Homogeneity'});
+    contrast = props.Contrast;
+    correlation = props.Correlation;
+    energy = props.Energy;
+    homogeneity = props.Homogeneity;
+    features = [meanR stdR meanG stdG meanB stdB contrast correlation energy homogeneity]';
+end
