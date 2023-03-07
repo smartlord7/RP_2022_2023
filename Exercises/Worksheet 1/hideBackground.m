@@ -6,7 +6,7 @@ function [img] = hideBackground(img)
     img2 = img .* uint8(seg_I);
     mask = img2(:, :, 1) ~= 0 | img2(:, :, 2) ~= 0 | img2(:, :, 3) ~= 0;
     img = img .* uint8(mask);
-    %figure;
-    %imshow(img)
+    % figure;
+    % imshow(img)
 end
 
